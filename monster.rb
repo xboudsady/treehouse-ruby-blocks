@@ -15,6 +15,10 @@ class Monster
         yield
     end
 
+    def inspect
+        "<#{name}, #{actions}>"
+    end
+
     def print_scoreboard
         puts "--------------------------------"
         puts "#{name} scoreboard"
@@ -47,7 +51,7 @@ class Monster
     def hide(&block)
         actions[:hides] += 1
         print "#{name} hides! "
-        yield
+        yield self if block_given?
     end
 end
 
@@ -67,8 +71,9 @@ monster.run do
     puts "Going to get you!"
 end
 
-monster.hide do
+monster.hide do |m|
     puts "Running away and hiding!"
+    puts m.inspect
 end
 
 puts "\n"
