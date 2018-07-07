@@ -1,9 +1,18 @@
-def get_name
-    print prompt + ": "
-    name = gets.chomp
-    yield name                             # yield keyword jumps out of a block function, and returns the variable value
+def get_name(prompt, &block)
+    if block_given?
+        print prompt + ": "
+        name = gets.chomp
+        print "Age: "
+        age = gets.chomp
+        yield name, age 
+        name
+    else
+        puts "No block given."
+    end
 end
 
-get_name do |name|                          # catches the variable name
-    print "That's a cool name, ! #{name}"
-end
+my_name = get_name("Enter your name") #do |your_name, age| 
+    #puts "That's a cool name, ! #{your_name}! Age #{age}."
+#end
+
+puts "my_name: #{my_name}"
